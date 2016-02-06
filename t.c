@@ -4,9 +4,12 @@
 #include "kernel.c"  // YOUR kernel functions
 int myExit()
 {
-   running->status = ZOMBIE;
-   tswitch();
-   printf("Running: P%d\n\r", running->pid);
+   if (running->pid) // don't ever kill P0
+   {
+      running->status = ZOMBIE;
+      tswitch();
+      printf("Running: P%d\n\r", running->pid);
+   }
 }
 int body(void)
 { 
@@ -54,8 +57,8 @@ PROC *kfork()
 
 	enqueue(&readyQueue, p); // enter p into readyQueue by priority
 	printf("kfork(): success\n\r");
-	printList("readyqueue", readyQueue);
-	printList("freeList", freeList);
+	//printList("readyqueue", readyQueue);
+	//printList("freeList", freeList);
 
 	return p; 
 }
@@ -81,7 +84,7 @@ int init()
     p->status = READY;
     running = p;
     nproc++;                 // number of active PROCs 
-    printf("done\n");
+    printf("done\n\r");
 } 
 
 int scheduler()
@@ -94,15 +97,16 @@ int scheduler()
             
 main()
 {
-    printf("MTX starts in main()\n");
+    printf("MTX starts in main()\n\r");
     init();      // initialize and create P0 as running
     kfork();     // P0 kfork() P1
-    while(1){
-      printf("P0 running\n");
+    while(1)
+   {
+      printf("P0 running\n\r");
       if (nproc==2 && proc[1].status != READY)
-	 printf("no runable process, system halts\n");
+	      printf("no runable process, system halts\n\r");
       while(!readyQueue);
-      printf("P0 switch process\n");
+      printf("P0 switch process\n\r");
       tswitch();   // P0 switch to run P1
    }
 }

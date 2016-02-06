@@ -1,35 +1,17 @@
-#include "io.h"
+#include "header.h"
 
 PROC *get_proc(PROC **list)     // e.g. get_proc(&freeList); 
 {
    PROC *procptr = *list;
    
-   printf("::get_proc::\n\r");
-
+   //printf("::get_proc::\n\r");
 	if(procptr->status == FREE)
 	{
 		*list = procptr->next;
 		procptr->next = 0;
 		return procptr;
 	}
-	// get a FREE PROC from *list; 
-   /*while (temp)
-   {
-      printf("within get_proc while\r\n");
-      if (temp->status == FREE)
-      {
-         printf("found FREE proc\n\r");
-			// take out proc and reconnect list
-			temp->next->parent = temp->parent; 
-			temp->parent->next = temp->next;
 
-			// set temps fields back to null
-			temp->next = 0;
-			temp->parent = 0;
-         return temp;   // return FREE pointer
-      }
-      temp = temp->next;
-   }*/
    printf("No FREE proc available\n\r");
    return 0;  // return 0 if no more FREE PROCs
 }
@@ -54,14 +36,9 @@ int enqueue(PROC **queue, PROC *p) //: enter p into queue by priority
 	PROC *proc = *queue;
 	PROC *previous = 0;
 
-	printf(":::Enqueue proc %d:::\n\r", p->pid);
-   //printf("printing queue\n\r");
-   //printList("queue", *queue);
-
 	//check for empty queue
 	if (proc == 0)
 	{
-		printf("READYQUEU NULL\n\r");
 		// insert p as first proc
 		*queue = p;
       printf("Enqueued proc %d\r\n", p->pid);
