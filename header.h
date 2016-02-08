@@ -69,8 +69,6 @@ struct dap{                // DAP for extended INT 13-42
        u32  s2;            // high 4 bytes of sector#
 };
 
-
-
 struct dap dap, *dp;       // global dap struct
 
 // io globals
@@ -82,11 +80,21 @@ char *table = "0123456789ABCDEF";
 char mbr[512];
 char ans[64];
 
-////////////////////////////////////////////////////////////////
+/******function headers*******/
+// t.c
 int init();
 int scheduler();
 PROC *kfork();
 int body(void);
+
+// kernel.c
+int ksleep(int event);
+int kwakeup(int event);
+
+int kexit(int exitvalue);
+int kwait(int *status);
+
+
 
 #endif 
 
