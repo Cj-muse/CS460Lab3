@@ -13,19 +13,32 @@ int myExit()
 }
 int body(void)
 { 
-	char c;
+	char c, str[64];
+	int test = 0;
+
    printf("proc %d resumes to body()\n\r", running->pid);
    while(1)
    {
       color = running->pid + 7;
+		printList("FreeList",freeList);
+		printList("ReadyQueue",readyQueue);
+
+		printf("test, enter a integer: ");
+		gets(str);
+		test = strtoint(str);
+		printf("atempting to print a converted integer :%d: \r\n", test);
+	
       printf("\rproc %d running : enter a key : ", running->pid);
       c = getc(); 
-      printf("%c\n\r", c);
+      printf("%c\n\n\r", c);
 		switch(c)
 		{
-			case 's': tswitch();	break;
-			case 'q': myExit();		break;
-			case 'f': kfork();	break;
+			case 's': tswitch();	 break;
+			case 'q': myExit();	 break;
+			case 'f': kfork();	 break;
+			case 'z': do_sleep(); break;
+			case 'a': do_wake();  break;
+			case 'w': do_wait();  break;
          default: break;
 		}
    }

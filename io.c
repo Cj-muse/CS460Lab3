@@ -110,9 +110,9 @@ int gets(char s[64])
 	char c = '0';
 	
 	// put carrige return and newline on front of string 
-	s[0] = '\n';
-	s[1] = '\r';
-	i = 2;
+//	s[0] = '\n';
+//	s[1] = '\r';
+//	i = 2;
 
 	do // iterate over user keystrokes until newline is encounterd
 	{
@@ -127,3 +127,63 @@ int gets(char s[64])
 	s[i+1] = '\r';
 	s[i+2] = 0;
 }
+
+int strtoint(char str[64])
+{
+	int integer = 0, i = 0, mul = 0;
+	printf("strtoint(): converting <%s> to an int\n\r", str);
+	
+	//traverse to the end of the string
+	while(str[i] != '\n')
+	{i++;	}
+	i -= 22;
+
+	printf("i = %d str[%d] = %c \n\r", i, i, str[i]);
+	while(isDigit(str[i]) != -1)
+	{
+		integer += power(10, mul) * isDigit(str[i]);
+		
+		mul++;
+		i--;
+	}
+	printf("strtoint(): returning %d \n\r", integer);
+	return integer;
+}
+
+int isDigit(char c)
+{
+	switch(c)
+	{
+		case '0': return 0; break;
+		case '1': return 1; break;
+		case '2': return 2; break;
+		case '3': return 3; break;
+		case '4': return 4; break;
+		case '5': return 5; break;
+		case '6': return 6; break;
+		case '7': return 7; break;
+		case '8': return 8; break;
+		case '9': return 9; break;
+		default: return -1;
+	}
+}
+
+int power(int x, int y)
+{
+	int i = 0, ret = 0;
+
+	if (y == 0)
+	{
+		printf("power(): returning 1 \n\r");
+		return 1;
+	}	
+
+	ret = x;
+	for(i = 1; i < y; i++)
+	{
+		ret = ret * x;
+	}
+	printf("power(): returning %d \n\r", ret); 
+	return ret;
+}
+

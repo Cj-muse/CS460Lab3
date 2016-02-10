@@ -1,6 +1,8 @@
 #ifndef HEADER_H
 #define HEADER_H
 
+#include <math.h>
+
 #define NPROC    9
 #define SSIZE 1024
 
@@ -86,6 +88,14 @@ int init();
 int scheduler();
 PROC *kfork();
 int body(void);
+
+// commands.c
+do_tswitch();
+do_kfork();
+do_exit();
+do_sleep();
+do_wake();
+do_wait();
 
 // kernel.c
 int ksleep(int event);

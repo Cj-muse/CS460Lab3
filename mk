@@ -3,7 +3,10 @@ as86 -o ts.o ts.s
 bcc  -c -ansi t.c
 bcc  -c -ansi queue.c
 bcc  -c -ansi io.c
-ld86 -d -o mtx ts.o t.o io.o queue.o mtxlib /usr/lib/bcc/libc.a
+bcc  -c -ansi kernel.c 
+bcc  -c -ansi commands.c
+bcc  -c -ansi wait.c
+ld86 -d -o mtx ts.o t.o io.o queue.o kernel.o commands.o wait.o mtxlib /usr/lib/bcc/libc.a
 
 echo mount mtximage on mnt
 sudo mount -o loop mtximage mnt

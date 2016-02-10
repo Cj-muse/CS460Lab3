@@ -1,42 +1,61 @@
 #include "kernel.c"
+#include "io.c"
 
 // 's' command
 do_tswitch()
-{
-
-}
+{}
 
 // 'f' command
 do_kfork()  
-{
-	
-}
+{}
 
 // 'q' command 
 do_exit()
 {
+	char str[50];
+	int value = 0;
+
 	//ask for an exitValue (value), e.g. 123
-        //kexit(exitValue);
+	printf("enter exit value: ");
+	gets(str);
+	value = strtoint(str);
+	kexit(value);
 }
 
 // 'z' command
 do_sleep()
 {
-        //ask for an event (value), e.g. 123; 
-        //ksleep(event);
+	char str[64];
+	int value = 0;
+
+   // ask for an event (value), e.g. 123; 
+	printf("enter event value: ");
+	gets(str);
+	value = strtoint(str);
+   ksleep(value);
 }
 
 // 'a' command
-do_wakeup()
+do_wake()
 {
+	char str[64];
+	int value = 0;
+
 	//ask for an event (value);
-        //kwakeup(event);
+	printf("enter event value: ");
+	gets(str);
+	
+	//string to int
+	value = strtoint(str);
+	kwakeup(value);
 }
 
 // 'w' command 
 do_wait()
 { 
-	//int pid, status;
-        //pid = kwait(&status);
-        //print pid and status;
+	int pid, status;
+   pid = kwait(&status);
+   
+	//print pid and status;
+	printf("do_wait(): pid = %d  status = %d \r\n", pid, status);
 }

@@ -92,7 +92,7 @@ int printList(char *name, PROC *list) //: print name=list contents
 {
 	/* print the queue entries in the form of [pid, prioirty]-> ... ->NULL*/
    int count = 0;
-	printf("List: %s\n\r", name);
+	printf("%s = ", name);
 
 	while (list && (count < NPROC))
 	{
