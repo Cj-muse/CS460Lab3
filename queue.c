@@ -1,25 +1,35 @@
 #include "header.h"
 
-PROC *get_proc(PROC **list)     // e.g. get_proc(&freeList); 
+PROC *get_proc(PROC **list, int status)     // e.g. get_proc(&freeList); 
 {
    PROC *procptr = *list;
    
-   //printf("::get_proc::\n\r");
-	if(procptr->status == FREE)
+   printf("get_proc(): status = %d \n\r", status);
+	if(procptr->status == status)
 	{
 		*list = procptr->next;
 		procptr->next = 0;
 		return procptr;
 	}
 
-   printf("No FREE proc available\n\r");
+   printf("No proc with status %d available in given list\n\r", status);
    return 0;  // return 0 if no more FREE PROCs
 }
-   
+
 int put_proc(PROC **list, PROC *p)  // e.g. put_proc(&freeList, p);
 {
    PROC *temp = *list;
+	
+	printf("put_proc();\n\r");
 
+	if(!temp)
+	{
+		printf("adding proc to null list\n\r");
+		p->next = 0;
+		*list = p;
+	}
+
+	// traverse to end
    while(temp->next)
    {
    	temp = temp->next;   
@@ -30,6 +40,38 @@ int put_proc(PROC **list, PROC *p)  // e.g. put_proc(&freeList, p);
    p->status = FREE;  
    return 0;
 }   
+
+// remove a proc based on unique pid, from a given linked list
+// and return a ptr to the proc
+PROC *removeProc(PROC **list, int pid) 
+{
+	PROC *node = *list;
+	PROC *previous = 0;
+	
+	// traverse the rest of the list
+	while(node)
+   {
+		printf("node->pid = %d ", node->pid);
+		if (node->pid == pid)
+		{
+			if(previous == 0) //check to see if the front of the list
+			{
+				//*list = node->next;
+		      node->next = 0;
+		      return node;
+			}
+			// dissconect and reconnect
+			previous->next = node->next;
+			node->next = 0;
+			return node;
+		}
+	
+		// move to next node
+		previous = node;
+		node = node->next;
+   }
+	printf("removeProc(): P%d not found\n\r", pid);	 
+}
 
 int enqueue(PROC **queue, PROC *p) //: enter p into queue by priority
 {

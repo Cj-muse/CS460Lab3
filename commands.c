@@ -1,5 +1,4 @@
 #include "kernel.c"
-#include "io.c"
 
 // 's' command
 do_tswitch()
@@ -32,6 +31,8 @@ do_sleep()
 	printf("enter event value: ");
 	gets(str);
 	value = strtoint(str);
+	
+	printf("P%d going to sleep on event: %d \n\r", running->pid, value);
    ksleep(value);
 }
 

@@ -128,25 +128,21 @@ int gets(char s[64])
 	s[i+2] = 0;
 }
 
-int strtoint(char str[64])
+int strtoint(char *str)
 {
 	int integer = 0, i = 0, mul = 0;
-	printf("strtoint(): converting <%s> to an int\n\r", str);
-	
+		
 	//traverse to the end of the string
 	while(str[i] != '\n')
 	{i++;	}
-	i -= 22;
+	i -= 2;
 
-	printf("i = %d str[%d] = %c \n\r", i, i, str[i]);
 	while(isDigit(str[i]) != -1)
 	{
 		integer += power(10, mul) * isDigit(str[i]);
-		
 		mul++;
 		i--;
 	}
-	printf("strtoint(): returning %d \n\r", integer);
 	return integer;
 }
 
@@ -174,7 +170,6 @@ int power(int x, int y)
 
 	if (y == 0)
 	{
-		printf("power(): returning 1 \n\r");
 		return 1;
 	}	
 
@@ -183,7 +178,7 @@ int power(int x, int y)
 	{
 		ret = ret * x;
 	}
-	printf("power(): returning %d \n\r", ret); 
+	//printf("power(): returning %d \n\r", ret); 
 	return ret;
 }
 

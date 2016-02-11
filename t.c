@@ -22,12 +22,8 @@ int body(void)
       color = running->pid + 7;
 		printList("FreeList",freeList);
 		printList("ReadyQueue",readyQueue);
+		printList("SleepList",sleepList);
 
-		printf("test, enter a integer: ");
-		gets(str);
-		test = strtoint(str);
-		printf("atempting to print a converted integer :%d: \r\n", test);
-	
       printf("\rproc %d running : enter a key : ", running->pid);
       c = getc(); 
       printf("%c\n\n\r", c);
@@ -46,8 +42,9 @@ int body(void)
 PROC *kfork()
 {
 	int i;
-	PROC *p = get_proc(&freeList);
-	
+	PROC *p = get_proc(&freeList, FREE);
+	printf("FREE = %d \n\r", FREE);
+
 	if (!p)
 	{
 		printf("no more PROC, kfork() failed\n\r");
@@ -93,7 +90,7 @@ int init()
     readyQueue = sleepList = 0;
 
     /**** create P0 as running ******/
-    p = get_proc(&freeList);
+    p = get_proc(&freeList, FREE);
     p->status = READY;
     running = p;
     nproc++;                 // number of active PROCs 

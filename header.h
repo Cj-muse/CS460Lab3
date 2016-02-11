@@ -104,6 +104,20 @@ int kwakeup(int event);
 int kexit(int exitvalue);
 int kwait(int *status);
 
+//io.c
+int rpu(u32 x);
+int rpu16(u16 x);
+int printu(u32 x);
+int printd(int x);
+int printo(u32 x);
+int printx(u32 x);
+void printf(char *fmt, ...);
+int prints(char *s);
+strcmp();
+int gets(char s[64]);
+int strtoint(char *str);
+int isDigit(char c);
+int power(int x, int y);
 
 
 #endif 
