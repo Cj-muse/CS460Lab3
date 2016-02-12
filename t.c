@@ -99,10 +99,13 @@ int init()
 
 int scheduler()
 {
-  if (running->status == READY){
-      enqueue(&readyQueue, running);
-  }
-  running = dequeue(&readyQueue);
+	printf("schedualer(): r->pid:%d r->staus: %d \n\r", running->pid, running->status);
+  	if (running->status == READY)
+  	{
+  		printf("in if\n\r");
+  		enqueue(&readyQueue, running);
+  	}
+ 	running = dequeue(&readyQueue);
 }
             
 main()

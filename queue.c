@@ -2,16 +2,26 @@
 
 PROC *get_proc(PROC **list, int status)     // e.g. get_proc(&freeList); 
 {
-   PROC *procptr = *list;
+   PROC *proc = *list, *previous = 0;
    
    printf("get_proc(): status = %d \n\r", status);
-	if(procptr->status == status)
+	while (proc)
 	{
-		*list = procptr->next;
-		procptr->next = 0;
-		return procptr;
+		if(proc->status == status)
+		{
+			if(previous) //not at start
+			{
+				previous->next = proc->next;
+				proc->next = 0;
+				return proc;
+			}
+			*list = proc->next;
+			proc->next = 0;
+			return proc;
+		}
+		previous = proc;
+		proc = proc->next;
 	}
-
    printf("No proc with status %d available in given list\n\r", status);
    return 0;  // return 0 if no more FREE PROCs
 }
@@ -20,8 +30,7 @@ int put_proc(PROC **list, PROC *p)  // e.g. put_proc(&freeList, p);
 {
    PROC *temp = *list;
 	
-	printf("put_proc();\n\r");
-
+	printf("put_proc(): pid %d status %d \n\r", p->pid, p->status);
 	if(!temp)
 	{
 		printf("adding proc to null list\n\r");
@@ -37,7 +46,7 @@ int put_proc(PROC **list, PROC *p)  // e.g. put_proc(&freeList, p);
    // enter p into *list;
 	p->next =  temp->next;
    temp->next = p; // enter p into *list;
-   p->status = FREE;  
+   //p->status = FREE;  
    return 0;
 }   
 

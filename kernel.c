@@ -9,6 +9,8 @@ int ksleep(int event)
 	//add proc to sleepList
 	put_proc(&sleepList, running);
 
+	printf("after put_proc: pid %d status %d \n\r", running->pid, running->status);
+
 	// give up CPU
 	tswitch();
 }

@@ -48,6 +48,7 @@ do_wake()
 	
 	//string to int
 	value = strtoint(str);
+	printf("P%d waking on event: %d \n\r", running->pid, value);
 	kwakeup(value);
 }
 
