@@ -100,6 +100,9 @@ int init()
 int scheduler()
 {
 	printf("schedualer(): r->pid:%d r->staus: %d \n\r", running->pid, running->status);
+   
+   printList("readyqueue", readyQueue);
+
   	if (running->status == READY)
   	{
   		printf("in if\n\r");

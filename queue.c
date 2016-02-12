@@ -4,7 +4,7 @@ PROC *get_proc(PROC **list, int status)     // e.g. get_proc(&freeList);
 {
    PROC *proc = *list, *previous = 0;
    
-   printf("get_proc(): status = %d \n\r", status);
+  printf("get_proc(): status = %d \n\r", status);
 	while (proc)
 	{
 		if(proc->status == status)
@@ -31,11 +31,14 @@ int put_proc(PROC **list, PROC *p)  // e.g. put_proc(&freeList, p);
    PROC *temp = *list;
 	
 	printf("put_proc(): pid %d status %d \n\r", p->pid, p->status);
+    printList("readyqueue", readyQueue);
+
 	if(!temp)
 	{
 		printf("adding proc to null list\n\r");
 		p->next = 0;
 		*list = p;
+      return 1;
 	}
 
 	// traverse to end
@@ -47,6 +50,9 @@ int put_proc(PROC **list, PROC *p)  // e.g. put_proc(&freeList, p);
 	p->next =  temp->next;
    temp->next = p; // enter p into *list;
    //p->status = FREE;  
+
+    printList("readyqueue", readyQueue);
+
    return 0;
 }   
 
