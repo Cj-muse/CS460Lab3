@@ -48,7 +48,7 @@ do_wake()
 	
 	//string to int
 	value = strtoint(str);
-	printf("P%d waking on event: %d \n\r", running->pid, value);
+	printf("P%d waking proc sleeping onssevent: %d \n\r", running->pid, value);
 	kwakeup(value);
 }
 
@@ -57,7 +57,13 @@ do_wait()
 { 
 	int pid, status;
    pid = kwait(&status);
-   
-	//print pid and status;
-	printf("do_wait(): pid = %d  status = %d \r\n", pid, status);
+	
+	if(pid == -1)
+	{
+		printf("do_wait: no child process..\n\r");
+	}
+	else
+	{	//print pid and status;
+		printf("do_wait(): pid = %d  status = %d \r\n", pid, status);
+	}
 }

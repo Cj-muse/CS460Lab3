@@ -56,38 +56,6 @@ int put_proc(PROC **list, PROC *p)  // e.g. put_proc(&freeList, p);
    return 0;
 }   
 
-// remove a proc based on unique pid, from a given linked list
-// and return a ptr to the proc
-PROC *removeProc(PROC **list, int pid) 
-{
-	PROC *node = *list;
-	PROC *previous = 0;
-	
-	// traverse the rest of the list
-	while(node)
-   {
-		printf("node->pid = %d ", node->pid);
-		if (node->pid == pid)
-		{
-			if(previous == 0) //check to see if the front of the list
-			{
-				//*list = node->next;
-		      node->next = 0;
-		      return node;
-			}
-			// dissconect and reconnect
-			previous->next = node->next;
-			node->next = 0;
-			return node;
-		}
-	
-		// move to next node
-		previous = node;
-		node = node->next;
-   }
-	printf("removeProc(): P%d not found\n\r", pid);	 
-}
-
 int enqueue(PROC **queue, PROC *p) //: enter p into queue by priority
 {
 	PROC *proc = *queue;

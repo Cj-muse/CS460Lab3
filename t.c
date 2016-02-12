@@ -30,7 +30,7 @@ int body(void)
 		switch(c)
 		{
 			case 's': tswitch();	 break;
-			case 'q': myExit();	 break;
+			case 'q': do_exit();	 break;
 			case 'f': kfork();	 break;
 			case 'z': do_sleep(); break;
 			case 'a': do_wake();  break;
@@ -99,13 +99,12 @@ int init()
 
 int scheduler()
 {
-	printf("schedualer(): r->pid:%d r->staus: %d \n\r", running->pid, running->status);
+//	printf("schedualer(): r->pid:%d r->staus: %d \n\r", running->pid, running->status);
    
-   printList("readyqueue", readyQueue);
+  // printList("readyqueue", readyQueue);
 
   	if (running->status == READY)
   	{
-  		printf("in if\n\r");
   		enqueue(&readyQueue, running);
   	}
  	running = dequeue(&readyQueue);
